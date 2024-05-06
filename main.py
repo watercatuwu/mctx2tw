@@ -23,13 +23,13 @@ for path in os.listdir(path='./zip/assets'):
         json.dump(data, newfile, ensure_ascii=False, indent=4)
 
 #參考chatgpt
-def zip_dir(dir_path, zip_path):
-    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        for root, dirs, files in os.walk(dir_path):
+def zip_dir(directory, zip_name):
+    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(directory):
             for file in files:
                 file_path = os.path.join(root, file)
-                arcname = os.path.relpath(file_path, os.path.dirname(dir_path))
-                zipf.write(file_path, arcname)
+                zipf.write(file_path, os.path.relpath(file_path, directory))
+
 
 newfile = filename[:-4]+"_tw.zip"
 zip_dir(workdir, newfile)
